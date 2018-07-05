@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@mipmap/image7"
+    tools:context="com.blueskylinks.spc_main.com.blueskylinks.expandablelist.expandable_hide_activity">
+    <ImageButton
+        android:id="@+id/setting"
+        android:layout_width="wrap_content"
+        android:layout_height="45dip"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/Editsearch"
+        android:src="@mipmap/arrow2" />
+
+
+    <ExpandableListView
+        android:id="@+id/expandableListView"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:indicatorLeft="?android:attr/expandableListPreferredItemIndicatorLeft"
+        android:divider="@android:color/darker_gray"
+        android:dividerHeight="0.5dp" />
+
+    </LinearLayout>

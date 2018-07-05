@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">Login_page</string>
+
+    <string name="spc_function_prompt">Choose a country</string>
+
+    <string-array name="spc_function_arrays1">
+        <item>select one from list</item>
+        <item>Feedback_Call</item>
+        <item>Feedback_SMS</item>
+        <item>OverLoad</item>
+        <item>No Load(Dry Run)</item>
+        <item>Restart(Dry Rnu)</item>
+        <item>OverVoltage</item>
+        <item>UnderVoltage</item>
+        <item>Reverse Phase</item>
+        <item>Stolen protection</item>
+    </string-array>
+
+
+    <string-array name="spc_function_arrays2">
+        <item>Real Clock Time(RTC)</item>
+    </string-array>
+
+
+</resources>

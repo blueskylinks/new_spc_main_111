@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.blueskylinks.spc_main">
+
+    <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher_round"
+        android:label="SPC"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".Main2Activity"
+            android:parentActivityName=".MainActivity" />
+        <activity android:name=".SettingsActivity" />
+        <activity android:name=".ON_OFFActivity" />
+        <activity android:name=".UsersActivity" />
+        <activity android:name=".ManualActivity" />
+        <activity android:name=".FeedbackCallActivity" />
+        <activity android:name=".OverLoadActivity" />
+        <activity android:name=".No_load_activity" />
+        <activity android:name=".Over_voltage_funtion" />
+        <activity android:name=".RestartDryrunActivity" />
+        <activity android:name=".UnderVoltageActivity" />
+        <activity android:name="com.blueskylinks.expandablelist.expandable_hide_activity" />
+        <activity android:name=".RealClockTimeActivity" />
+        <activity android:name=".splashActivity"></activity>
+    </application>
+
+</manifest>
