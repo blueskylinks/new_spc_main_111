@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
     boolean value1 = true;
     public static String phoneNumber;
     TextView textView;
-    String Subno;
+    public static  String Subno;
     Spinner SPINNER;
     Button ADD;
     EditText EDITTEXT;
@@ -131,6 +131,7 @@ public class MainActivity extends AppCompatActivity {
                 Subno = SPINNER.getItemAtPosition(i).toString();
                 Log.i("Selected item",Subno);
                 phoneNumber=Subno;
+                Log.i("Selected item",phoneNumber);
             }
 
             @Override
@@ -140,7 +141,6 @@ public class MainActivity extends AppCompatActivity {
 
         });
     }
-
 
 public void display_editBox(View v){
     EDITTEXT.setVisibility(View.VISIBLE);
@@ -155,18 +155,20 @@ public void display_editBox(View v){
     public void update_spinner(View v){
         GETTEXT = EDITTEXT.getText().toString();
         if(stringlist.contains(GETTEXT)){}
-        else{
-        stringlist.add(GETTEXT);
-        arrayadapter.notifyDataSetChanged();
-        prefs = this.getSharedPreferences("TAG", Context.MODE_PRIVATE);
-        int device_size=stringlist.size();
-        for(int i=0;i<device_size;i++){
-            if(device_size<=5) {
-                prefs.edit().putString(String.valueOf(i), stringlist.get(i)).commit();
+        else {
+            if (GETTEXT.length()==10) {
+                stringlist.add(GETTEXT);
+                arrayadapter.notifyDataSetChanged();
+                prefs = this.getSharedPreferences("TAG", Context.MODE_PRIVATE);
+                int device_size = stringlist.size();
+                for (int i = 0; i < device_size; i++) {
+                    if (device_size <= 5) {
+                        prefs.edit().putString(String.valueOf(i), stringlist.get(i)).commit();
+                    }
+                }
+                Log.i("updated string", stringlist.toString());
             }
-        }
-
-        Log.i("updated string",stringlist.toString());
+            else Toast.makeText(this, "Please Enter 10 digit number!....", Toast.LENGTH_SHORT).show();
         }
         EDITTEXT.setVisibility(View.INVISIBLE);
         ADD.setVisibility(View.INVISIBLE);
@@ -174,17 +176,31 @@ public void display_editBox(View v){
 
     public void remove_spinnerItems(View view){
         TEXT=EDITTEXT1.getText().toString();
-        if(stringlist.contains(TEXT)) {
-            //  String selectedItem=stringlist.get(i).toString();
-            // Log.i("Seleected Item",selectedItem);
-            stringlist.remove(TEXT);
-            arrayadapter.notifyDataSetChanged();
-        }
-        else Toast.makeText(this, "please Enter 10 digit Number", Toast.LENGTH_SHORT).show();
 
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+         builder.setPositiveButton("yes", new DialogInterface.OnClickListener() {
+                    @Override
+            public void onClick(DialogInterface dialog, int id) {
+                if(stringlist.contains(TEXT)) {
+                    //  String selectedItem=stringlist.get(i).toString();
+                    // Log.i("Seleected Item",selectedItem);
+                    stringlist.remove(TEXT);
+                    arrayadapter.notifyDataSetChanged();
+                }
+                else Toast.makeText(MainActivity.this, "please Enter 10 digit Number", Toast.LENGTH_SHORT).show();
+            }
+        });
+        builder.setNegativeButton("No",new DialogInterface.OnClickListener() {
+            @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        finish();
+                    }
+                    });
+                    // Create the AlertDialog object and return it
+            builder.create();
+        builder.show();
         EDITTEXT1.setVisibility(View.INVISIBLE);
         remove.setVisibility(View.INVISIBLE);
-
     }
 
     public void set_activity(View view) {
@@ -202,8 +218,7 @@ public void display_editBox(View v){
         } else {
             phoneNumber=subId;*/
             //starting another activity..
-            subId=Subno;
-            phoneNumber=Subno;
+
             Intent it = new Intent(MainActivity.this, splashActivity.class);
             startActivity(it);
     }
