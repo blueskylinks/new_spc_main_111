@@ -11,6 +11,7 @@ import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.graphics.drawable.AnimationDrawable;
 import android.net.Uri;
+import android.preference.PreferenceManager;
 import android.provider.Telephony;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
@@ -26,6 +27,7 @@ import android.widget.Toast;
 
 import static com.blueskylinks.spc_main.MainActivity.Subno;
 import static com.blueskylinks.spc_main.MainActivity.phoneNumber;
+import static com.blueskylinks.spc_main.MainActivity.stringlist;
 import static com.blueskylinks.spc_main.MainActivity.subId;
 
 public class Main2Activity extends AppCompatActivity {
@@ -34,12 +36,10 @@ public class Main2Activity extends AppCompatActivity {
     public static  TextView tv2;
     public static  TextView tv3;
     public static  TextView tv4;
-    public static  TextView tv5;
-    public static  TextView textView6;
     public static  TextView tc1;
     public static  TextView tc2;
     public static  TextView tc3;
-
+    SharedPreferences prefs;
     ImageView myimage;
     TextView textt1;
     TextView tv9;
@@ -47,6 +47,7 @@ public class Main2Activity extends AppCompatActivity {
     //phoneNumber=Subno;
     //changes made
     String SMSBody1;
+    int pos;
 
     public static SharedPreferences mt_status_pref;
     public static SharedPreferences.Editor editor;
@@ -86,7 +87,7 @@ public class Main2Activity extends AppCompatActivity {
 
         myimage=findViewById(R.id.img1);
         textt1=findViewById(R.id.textt1);
-        Log.i("",phoneNumber);
+//        Log.i("",phoneNumber);
 
         tv9=findViewById(R.id.textView29);
        /* if(app_status!=1){
@@ -99,6 +100,11 @@ public class Main2Activity extends AppCompatActivity {
             progress();
             app_status =1;
         }*/
+
+        SharedPreferences SP = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        if(SP!=null){
+             pos= SP.getInt("last index", 0);
+        }
     }
 
     @Override
@@ -106,8 +112,8 @@ public class Main2Activity extends AppCompatActivity {
        super.onResume();
         SMSBody1="";
         //Get the last updated mot status through shared preferances and update during onResume.
-        mt_status_pref = getSharedPreferences("TAG1", Context.MODE_PRIVATE);
-        mot_st_n1= mt_status_pref.getString("0", null);
+        mt_status_pref = getSharedPreferences("TAG11", Context.MODE_PRIVATE);
+        mot_st_n1= mt_status_pref.getString(String.valueOf(pos), null);
         if(mot_st_n1!=null){
             if(mot_st_n1.equals("ON")){
                 myimage.setImageResource(R.drawable.display_green_circle);
@@ -181,7 +187,7 @@ public class Main2Activity extends AppCompatActivity {
 
     public void motor_on(View view){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Are you sure,want remove Number from list");
+        builder.setMessage("Are you sure,want to turn on motor?");
         builder.setPositiveButton("yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int id) {
@@ -190,14 +196,20 @@ public class Main2Activity extends AppCompatActivity {
                 smsManager.sendTextMessage(phoneNumber, null, message, null, null);
                 myimage.setImageResource(R.drawable.display_green_circle);
                 textt1.setText("ON");
-                mt_status_pref = getSharedPreferences("TAG1", Context.MODE_PRIVATE);
-                mt_status_pref.edit().putString("0","ON").commit();
+                //mt_status_pref = getSharedPreferences("TAG1", Context.MODE_PRIVATE);
+              //  mt_status_pref.edit().putString("0","ON").commit();
+
+                mt_status_pref =getSharedPreferences("TAG11", Context.MODE_PRIVATE);
+                int device_size = stringlist.size();
+                for (int i = 0; i < device_size; i++) {
+                    if(pos==i) mt_status_pref.edit().putString(String.valueOf(i),"ON").commit();
+                    else {}
+                }
             }
         });
         builder.setNegativeButton("No",new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int id) {
-                finish();
             }
         });
         // Create the AlertDialog object and return it
@@ -206,9 +218,8 @@ public class Main2Activity extends AppCompatActivity {
     }
 
     public void motor_off(View view){
-        Toast.makeText(this, "Testing", Toast.LENGTH_SHORT).show();
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Are you sure,want remove Number from list");
+        builder.setMessage("Are you sure,want to turn off motor?");
         builder.setPositiveButton("yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int id) {
@@ -217,14 +228,21 @@ public class Main2Activity extends AppCompatActivity {
                 smsManager.sendTextMessage(phoneNumber, null, message, null, null);
                 myimage.setImageResource(R.drawable.display_red_circle);
                 textt1.setText("OFF");
-                mt_status_pref = getSharedPreferences("TAG1", Context.MODE_PRIVATE);
-                mt_status_pref.edit().putString("0","OFF").commit();
+               // mt_status_pref = getSharedPreferences("TAG1", Context.MODE_PRIVATE);
+               // mt_status_pref.edit().putString("0","OFF").commit();
+
+                mt_status_pref =getSharedPreferences("TAG11", Context.MODE_PRIVATE);
+                int device_size = stringlist.size();
+                for (int i = 0; i < device_size; i++) {
+                    if(pos==i) mt_status_pref.edit().putString(String.valueOf(i),"OFF").commit();
+                    else {}
+                }
             }
         });
         builder.setNegativeButton("No",new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int id) {
-                finish();
+
             }
         });
         // Create the AlertDialog object and return it

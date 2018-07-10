@@ -42,14 +42,10 @@ import java.util.Set;
 public class MainActivity extends AppCompatActivity {
 
     public static String subId;
-    String pass;
     TextView text;
-    CheckBox c1;
     SharedPreferences prefs;
-   EditText edt1;
-    boolean value1 = true;
     public static String phoneNumber;
-    TextView textView;
+    //TextView textView;
     public static  String Subno;
     Spinner SPINNER;
     Button ADD;
@@ -60,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
     String[] spinnerItems = new String[]{};
     String GETTEXT;
     String gettext="111";
-    List<String> stringlist;
+    public static List<String> stringlist;
     ArrayAdapter<String> arrayadapter;
 
     @Override
@@ -123,7 +119,12 @@ public class MainActivity extends AppCompatActivity {
             stringlist.add(gettext);
             arrayadapter.notifyDataSetChanged();
         }
-
+        //get spinner last postion
+        SharedPreferences SP = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        if(SP!=null){
+            int pos = SP.getInt("last index", 0);
+            SPINNER.setSelection(pos);
+        }
 
         SPINNER.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -132,6 +133,9 @@ public class MainActivity extends AppCompatActivity {
                 Log.i("Selected item",Subno);
                 phoneNumber=Subno;
                 Log.i("Selected item",phoneNumber);
+                SharedPreferences SP;
+                SP = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                SP.edit().putInt("last index", SPINNER.getSelectedItemPosition()).commit();
             }
 
             @Override
@@ -159,7 +163,7 @@ public void display_editBox(View v){
             if (GETTEXT.length()==10) {
                 stringlist.add(GETTEXT);
                 arrayadapter.notifyDataSetChanged();
-                prefs = this.getSharedPreferences("TAG", Context.MODE_PRIVATE);
+                prefs = getSharedPreferences("TAG", Context.MODE_PRIVATE);
                 int device_size = stringlist.size();
                 for (int i = 0; i < device_size; i++) {
                     if (device_size <= 5) {
@@ -178,22 +182,26 @@ public void display_editBox(View v){
         TEXT=EDITTEXT1.getText().toString();
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Are you sure,want to remove Number?");
          builder.setPositiveButton("yes", new DialogInterface.OnClickListener() {
                     @Override
             public void onClick(DialogInterface dialog, int id) {
                 if(stringlist.contains(TEXT)) {
                     //  String selectedItem=stringlist.get(i).toString();
                     // Log.i("Seleected Item",selectedItem);
+                    int index=stringlist.indexOf(TEXT);
                     stringlist.remove(TEXT);
                     arrayadapter.notifyDataSetChanged();
+                    prefs = getSharedPreferences("TAG", Context.MODE_PRIVATE);
+                    prefs.edit().remove(String.valueOf(index));
                 }
-                else Toast.makeText(MainActivity.this, "please Enter 10 digit Number", Toast.LENGTH_SHORT).show();
+                else Toast.makeText(MainActivity.this, "please Enter valid Number!...", Toast.LENGTH_SHORT).show();
             }
         });
         builder.setNegativeButton("No",new DialogInterface.OnClickListener() {
             @Override
                     public void onClick(DialogInterface dialog, int id) {
-                        finish();
+
                     }
                     });
                     // Create the AlertDialog object and return it

@@ -43,11 +43,18 @@
             android:orientation="vertical">
 
 
+            <Spinner
+                android:id="@+id/spinner111"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="2"
                 android:layout_marginTop="20dp"
+                android:layout_weight="2"
                 android:orientation="horizontal">
 
                 <TableRow
@@ -55,11 +62,12 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1">
 
-                    <TextView
+                    <!-- <TextView
                         android:id="@+id/mot_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Motor 1" />
+                        android:text="Motor 1" />-->
+
 
                 </TableRow>
 
@@ -83,31 +91,31 @@
                         android:layout_weight="1"
                         android:text="OFF" />
                 </RadioGroup>
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:layout_weight="1"
-                >
 
-
-                <Button
-                    android:id="@+id/button3"
-                    android:layout_width="match_parent"
-                    android:layout_marginRight="10dp"
-                    android:layout_height="wrap_content"
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:background="@drawable/mybutton"
-                    android:onClick="turnsOn"
-                    android:text="submit" />
+                    android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/on_off_status"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textSize="18dp"/>
-            </LinearLayout>
+
+                    <Button
+                        android:id="@+id/button3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/mybutton"
+                        android:onClick="turnsOn"
+                        android:text="submit" />
+
+                    <TextView
+                        android:id="@+id/on_off_status"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textSize="18dp" />
+                </LinearLayout>
 
 
             </LinearLayout>

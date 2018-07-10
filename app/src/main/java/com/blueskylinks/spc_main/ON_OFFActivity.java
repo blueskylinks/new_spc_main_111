@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.graphics.drawable.RotateDrawable;
+import android.preference.PreferenceManager;
 import android.provider.Telephony;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -35,12 +36,15 @@ import android.widget.Toast;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import static com.blueskylinks.spc_main.Main2Activity.mot_st;
 import static com.blueskylinks.spc_main.Main2Activity.progressDialog;
 import static com.blueskylinks.spc_main.Main2Activity.tv;
+import static com.blueskylinks.spc_main.MainActivity.Subno;
 import static com.blueskylinks.spc_main.MainActivity.phoneNumber;
 
 public class ON_OFFActivity extends AppCompatActivity {
@@ -73,6 +77,8 @@ public class ON_OFFActivity extends AppCompatActivity {
     TextView et11;
     TextView et12;
     TextView et13;
+    Spinner SPINNER;
+    SharedPreferences prefs;
    String ftime;
    String ntime;
    String ftime1;
@@ -88,6 +94,7 @@ public class ON_OFFActivity extends AppCompatActivity {
     Date date_1=null;
     Date date_2=null;
     Date ontime;
+    String gettext="11111";
     Date offtime;
     SharedPreferences sharedPreferences;
   SharedPreferences.Editor editor;
@@ -96,10 +103,13 @@ public class ON_OFFActivity extends AppCompatActivity {
   TextView remove1;
   TextView remove2;
   TextView remove3;
+    List<String> stringlist;
+    ArrayAdapter<String> arrayadapter;
     boolean value1 = true;
     boolean value2 = true;
     Date currenttime;
     String ctime;
+    String[] spinnerItems = new String[]{};
 
 
     @Override
@@ -151,6 +161,7 @@ public class ON_OFFActivity extends AppCompatActivity {
         spinner1 = new Spinner(this);
         image=findViewById(R.id.image);
         format = new SimpleDateFormat("HH:mm");
+        SPINNER = (Spinner)findViewById(R.id.spinner111);
         ctime=format.format(Calendar.getInstance().getTime());
         Log.i("current time",ctime);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -170,22 +181,160 @@ public class ON_OFFActivity extends AppCompatActivity {
             }
             // to close the onItemSelected
             @Override
-            public void onNothingSelected(AdapterView<?> parent)
-            {
-
-            }
+            public void onNothingSelected(AdapterView<?> parent) {            }
         });
         spinner1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 selectedItem = parent.getItemAtPosition(position).toString();
                 Log.i("position ", selectedItem);
-
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {
+            public void onNothingSelected(AdapterView<?> parent) {}
+        });
 
+        stringlist = new ArrayList<>(Arrays.asList(spinnerItems));
+
+        arrayadapter = new ArrayAdapter<String>(ON_OFFActivity.this,R.layout.textview,stringlist);
+
+        arrayadapter.setDropDownViewResource(R.layout.textview);
+        SPINNER.setAdapter(arrayadapter);
+        SPINNER.setBackgroundResource(R.drawable.mybutton);
+
+        prefs = getSharedPreferences("TAG", Context.MODE_PRIVATE);
+        gettext= prefs.getString("0", null);
+        if(gettext!=null){
+            Log.i("value",gettext);
+            stringlist.add(gettext);
+            arrayadapter.notifyDataSetChanged();
+        }
+
+        gettext= prefs.getString("1", null);
+        if(gettext!=null){
+            Log.i("value",gettext);
+            stringlist.add(gettext);
+            arrayadapter.notifyDataSetChanged();
+        }
+
+        gettext= prefs.getString("2", null);
+        if(gettext!=null){
+            Log.i("value",gettext);
+            stringlist.add(gettext);
+            arrayadapter.notifyDataSetChanged();
+        }
+
+        gettext= prefs.getString("3", null);
+        if(gettext!=null){
+            Log.i("value",gettext);
+            stringlist.add(gettext);
+            arrayadapter.notifyDataSetChanged();
+        }
+
+        gettext= prefs.getString("4", null);
+        if(gettext!=null){
+            Log.i("value",gettext);
+            stringlist.add(gettext);
+            arrayadapter.notifyDataSetChanged();
+        }
+        //get spinner last postion
+        SharedPreferences SP = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        if(SP!=null){
+            int pos = SP.getInt("last index", 0);
+            SPINNER.setSelection(pos);
+        }
+
+        SPINNER.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                Subno = SPINNER.getItemAtPosition(i).toString();
+                Log.i("Selected item",Subno);
+                phoneNumber=Subno;
+                SharedPreferences SP;
+                SP = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                SP.edit().putInt("last index", SPINNER.getSelectedItemPosition()).commit();
+
+
+                //get statuses
+                prefs = getSharedPreferences("TAG11" + "", Context.MODE_PRIVATE);
+                if ( SPINNER.getSelectedItemPosition()==0) {
+                    Log.i("", "displaying status1");
+                    gettext = prefs.getString("0", null);
+                    if(gettext!=null) {
+                        if (gettext.contains("ON")) {
+                            onoff_rb1.setChecked(true);
+                            mot_st_text1.setText("ON");
+                        } else if (gettext.contains("OFF")) {
+                            onoff_rb2.setChecked(true);
+                            mot_st_text1.setText("OFF");
+                        } else {
+                            onoff_rb2.setChecked(false);
+                            onoff_rb1.setChecked(false);
+                        }
+                    }
+                }
+                if ( SPINNER.getSelectedItemPosition()==1) {
+                    gettext = prefs.getString("1", null);
+                    if (gettext != null) {
+                        Log.i("gettext", gettext);
+                        if (gettext.contains("ON")) {
+                            Log.i("", "displaying status2");
+                            onoff_rb1.setChecked(true);
+                            mot_st_text1.setText("ON");
+                        } else if (gettext.contains("OFF")) {
+                            Log.i("", "displaying status2");
+                            onoff_rb2.setChecked(true);
+                            mot_st_text1.setText("OFF");
+                        } else {
+                            onoff_rb2.setChecked(false);
+                            onoff_rb1.setChecked(false);
+                        }
+                    }
+                }
+                if ( SPINNER.getSelectedItemPosition()==2) {
+                    Log.i("", "displaying status3");
+                    gettext = prefs.getString("2", null);
+                    if (gettext != null) {
+                        if (gettext.contains("ON")) {
+                            onoff_rb1.setChecked(true);
+                            mot_st_text1.setText("ON");
+                        } else if (gettext.contains("OFF")) {
+                            onoff_rb2.setChecked(true);
+                            mot_st_text1.setText("OFF");
+                        } else {
+                            onoff_rb2.setChecked(false);
+                            onoff_rb1.setChecked(false);
+                        }
+                    }
+                }
+                if ( SPINNER.getSelectedItemPosition()==3) {
+                    Log.i("", "displaying status4");
+                    gettext = prefs.getString("3", null);
+                    if (gettext != null) {
+                        if (gettext.contains("ON")) {
+                            onoff_rb1.setChecked(true);
+                            mot_st_text1.setText("ON");
+                        } else if (gettext.contains("OFF")) {
+                            onoff_rb2.setChecked(true);
+                            mot_st_text1.setText("OFF");
+                        } else {
+                            onoff_rb2.setChecked(false);
+                            onoff_rb1.setChecked(false);
+                        }
+                    }
+                }
+                if ( SPINNER.getSelectedItemPosition()==4){
+                    Log.i("","displaying status5");
+                    gettext= prefs.getString("4", null);
+                    if(gettext.contains("ON")){ onoff_rb1.setChecked(true); mot_st_text1.setText("ON");}
+
+                    else{onoff_rb2.setChecked(false); onoff_rb1.setChecked(false);}
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // your code here
             }
         });
 

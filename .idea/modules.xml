@@ -3,8 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/new_spc_main_11.iml" filepath="$PROJECT_DIR$/new_spc_main_11.iml" />
       <module fileurl="file://C:\ccc\AndroidStudioProjects\new_spc_main_111\new_spc_main_11.iml" filepath="C:\ccc\AndroidStudioProjects\new_spc_main_111\new_spc_main_11.iml" />
-      <module fileurl="file://$PROJECT_DIR$/new_spc_main_111.iml" filepath="$PROJECT_DIR$/new_spc_main_111.iml" />
+      <module fileurl="file://C:\Users\omsai\AndroidStudioProjects\new_spc_main_11\new_spc_main_111.iml" filepath="C:\Users\omsai\AndroidStudioProjects\new_spc_main_11\new_spc_main_111.iml" />
     </modules>
   </component>
 </project>
