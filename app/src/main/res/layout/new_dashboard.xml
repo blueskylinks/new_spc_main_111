@@ -208,7 +208,7 @@
                 android:gravity="center"
                 android:text="0.00"
                 android:textColor="@android:color/holo_red_dark"
-                android:textSize="46sp"
+                android:textSize="52sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -216,11 +216,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
+                android:background="@drawable/shape"
                 android:gravity="center"
                 android:text="0.00"
-                android:background="@drawable/shape"
                 android:textColor="@android:color/holo_red_dark"
-                android:textSize="46sp"
+                android:textSize="52sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -228,11 +228,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:gravity="center"
                 android:background="@drawable/shape"
+                android:gravity="center"
                 android:text="0.00"
                 android:textColor="@android:color/holo_red_dark"
-                android:textSize="46sp"
+                android:textSize="52sp"
                 android:textStyle="bold" />
 
            <!-- <View
@@ -247,11 +247,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:gravity="center"
                 android:background="@drawable/shape"
+                android:gravity="center"
                 android:text="0.00"
                 android:textColor="@android:color/holo_blue_dark"
-                android:textSize="46sp"
+                android:textSize="52sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -259,11 +259,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
+                android:background="@drawable/shape"
                 android:gravity="center"
                 android:text="0.00"
-                android:background="@drawable/shape"
                 android:textColor="@android:color/holo_blue_dark"
-                android:textSize="46sp"
+                android:textSize="52sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -275,7 +275,7 @@
                 android:gravity="center"
                 android:text="0.00"
                 android:textColor="@android:color/holo_blue_dark"
-                android:textSize="46sp"
+                android:textSize="52sp"
                 android:textStyle="bold" />
 
 
@@ -305,17 +305,30 @@
 
 
         <TextView
-        android:id="@+id/refresh_bt1"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-           android:layout_marginLeft="20dp"
+            android:id="@+id/refresh_bt"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-        android:background="#f7dc6f"
-        android:gravity="center"
-        android:onClick="refresh"
-            android:textStyle="bold"
-        android:text="Enquire" />
+            android:layout_weight="1"
+            android:background=" #1e8449 "
+            android:gravity="center"
+            android:onClick="motor_on"
+            android:text="START"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/refresh_bt1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_weight="1"
+            android:background="#f7dc6f"
+            android:gravity="center"
+            android:onClick="refresh"
+            android:text="Enquire"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/refresh_bt13"
@@ -329,17 +342,16 @@
             android:text="STOP" />
 
         <TextView
-            android:id="@+id/refresh_bt133"
+            android:id="@+id/dial1"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:background=" #1e8449 "
-            android:textStyle="bold"
+            android:layout_weight="1"
+            android:background="@android:drawable/sym_action_call"
             android:gravity="center"
-            android:onClick="motor_on"
-            android:text="START" />
+            android:onClick="make_call"
+            android:textStyle="bold" />
 
     </LinearLayout>
 

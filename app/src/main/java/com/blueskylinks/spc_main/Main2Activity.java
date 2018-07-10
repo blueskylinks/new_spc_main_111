@@ -10,6 +10,7 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.graphics.drawable.AnimationDrawable;
+import android.net.Uri;
 import android.provider.Telephony;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
@@ -50,6 +51,7 @@ public class Main2Activity extends AppCompatActivity {
     public static SharedPreferences mt_status_pref;
     public static SharedPreferences.Editor editor;
     public static int mot_st;
+    public static String mot_st_n1;
     public static int app_status;
 
     @Override
@@ -101,20 +103,27 @@ public class Main2Activity extends AppCompatActivity {
 
     @Override
     protected void onResume(){
-       /* super.onResume();
+       super.onResume();
         SMSBody1="";
-        editor = mt_status_pref.edit();
-        app_status = mt_status_pref.getInt("a1",0);
-        Log.i("aaaaa", Integer.toString(app_status));
-        if(mot_st != mt_status_pref.getInt("m1",0)){
-            editor.putInt("m1",mot_st);
-            editor.commit();
-        }*/
+        //Get the last updated mot status through shared preferances and update during onResume.
+        mt_status_pref = getSharedPreferences("TAG1", Context.MODE_PRIVATE);
+        mot_st_n1= mt_status_pref.getString("0", null);
+        if(mot_st_n1!=null){
+            if(mot_st_n1.equals("ON")){
+                myimage.setImageResource(R.drawable.display_green_circle);
+                textt1.setText("ON");
+            }
+            if(mot_st_n1.equals("OFF")) {
+                myimage.setImageResource(R.drawable.display_red_circle);
+                textt1.setText("OFF");
+            }
+        }
+
 
         final IntentFilter mIntentFilter = new IntentFilter(Telephony.Sms.Intents.SMS_RECEIVED_ACTION);
         registerReceiver(sms_notify_reciver, mIntentFilter);
         registerReceiver(sms_notify_reciver,mIntentFilter);
-        super.onResume();
+        //super.onResume();
     }
 
     public void refresh(View view){
@@ -181,6 +190,8 @@ public class Main2Activity extends AppCompatActivity {
                 smsManager.sendTextMessage(phoneNumber, null, message, null, null);
                 myimage.setImageResource(R.drawable.display_green_circle);
                 textt1.setText("ON");
+                mt_status_pref = getSharedPreferences("TAG1", Context.MODE_PRIVATE);
+                mt_status_pref.edit().putString("0","ON").commit();
             }
         });
         builder.setNegativeButton("No",new DialogInterface.OnClickListener() {
@@ -206,6 +217,8 @@ public class Main2Activity extends AppCompatActivity {
                 smsManager.sendTextMessage(phoneNumber, null, message, null, null);
                 myimage.setImageResource(R.drawable.display_red_circle);
                 textt1.setText("OFF");
+                mt_status_pref = getSharedPreferences("TAG1", Context.MODE_PRIVATE);
+                mt_status_pref.edit().putString("0","OFF").commit();
             }
         });
         builder.setNegativeButton("No",new DialogInterface.OnClickListener() {
@@ -217,6 +230,13 @@ public class Main2Activity extends AppCompatActivity {
         // Create the AlertDialog object and return it
         builder.create();
         builder.show();
+    }
+
+    public void make_call(View v1){
+        //Intent intent = new Intent(Intent.ACTION_CALL);
+        Uri number = Uri.parse("tel:"+phoneNumber);
+        Intent callIntent = new Intent(Intent.ACTION_DIAL, number);
+        startActivity(callIntent);
     }
 
     private final BroadcastReceiver sms_notify_reciver = new BroadcastReceiver() {
