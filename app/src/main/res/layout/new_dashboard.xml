@@ -318,6 +318,17 @@
             android:textStyle="bold" />
 
         <TextView
+            android:id="@+id/refresh_bt13"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background=" #e74c3c "
+            android:gravity="center"
+            android:onClick="motor_off"
+            android:text="STOP"
+            android:textStyle="bold" />
+
+        <TextView
             android:id="@+id/refresh_bt1"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -329,17 +340,6 @@
             android:onClick="refresh"
             android:text="Enquire"
             android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/refresh_bt13"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background=" #e74c3c "
-            android:gravity="center"
-            android:onClick="motor_off"
-            android:textStyle="bold"
-            android:text="STOP" />
 
         <TextView
             android:id="@+id/dial1"

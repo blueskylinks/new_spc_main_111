@@ -257,15 +257,15 @@ public class Main2Activity extends AppCompatActivity {
                     String sms = SMSBody1;
 
                     if (lines[1].toString().contains("on ")) {
-                        ImageView mImageViewFilling = findViewById(R.id.image_rot);
-                        ((AnimationDrawable) mImageViewFilling.getBackground()).start();
+                        //ImageView mImageViewFilling = findViewById(R.id.image_rot);
+                        //((AnimationDrawable) mImageViewFilling.getBackground()).start();
                         // tv.setText("ON");
-                        editor = mt_status_pref.edit();
-                        editor.putInt("m1",1);
-                        editor.commit();
+                        //editor = mt_status_pref.edit();
+                        //editor.putInt("m1",1);
+                        //editor.commit();
                         mot_st=1;
-                        if (lines[1].toString().contains("3")) tv1.setText("3 Phase Mode");
-                        else tv1.setText("2 Phase Mode");
+                        //if (lines[1].toString().contains("3")) tv1.setText("3 Phase Mode");
+                        //else tv1.setText("2 Phase Mode");
                         String s1 = lines[2].toString();
                         String s2 = lines[3].toString();
                         String s3 = lines[4].toString();
@@ -279,12 +279,12 @@ public class Main2Activity extends AppCompatActivity {
                         tc3.setText(lines[8].toString().substring(3));
                         //tv9.setText(s4.substring(6));
                     } else if (lines[1].toString().contains("off")) {
-                        tv.setText("OFF");
-                        editor = mt_status_pref.edit();
-                        editor.putInt("m1",0);
-                        editor.commit();
-                        mot_st=0;
-                        String s4 = lines[5].toString();
+                        //tv.setText("OFF");
+                        //editor = mt_status_pref.edit();
+                        //editor.putInt("m1",0);
+                        //editor.commit();
+                        //mot_st=0;
+                        //String s4 = lines[5].toString();
                         //tv9.setText(s4.substring(6));
                     } else return;
                     SMSBody1 = "";
